@@ -363,7 +363,9 @@ class PineconeDocumentStore:
             # we save content as metadata
             if document.content is not None:
                 doc_for_pinecone["metadata"]["content"] = document.content
-            if document.dataframe is not None:
+           
+            # With the removal of dataframe, should safely attempt to access atribute instead.
+            if getattr(document, "dataframe", None) is not None:
                 logger.warning(
                     "Document %s has the `dataframe` field set. "
                     "PineconeDocumentStore no longer supports dataframes and this field will be ignored. "
